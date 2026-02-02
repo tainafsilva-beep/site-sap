@@ -39,6 +39,10 @@
 
     /* Top bar */
     .topbar{
+.topbar.scrolled {
+  background: rgba(11,16,32, .85);
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
       position: sticky;
       top: 0;
       z-index: 50;
@@ -115,9 +119,9 @@
     .btn.small{ padding: 10px 12px; border-radius: 12px; font-size: 13px; }
 
     /* Sections */
-    section{ padding: 96px 0; }
+    section{ padding: 120px 0; }
     section:nth-of-type(even){
-      background: rgba(255,255,255,.025);
+      background: rgba(255,255,255,.018);
       border-top: 1px solid rgba(255,255,255,.06);
       border-bottom: 1px solid rgba(255,255,255,.06);
     }
@@ -156,9 +160,11 @@
       margin: 0 0 14px 0;
     }
     .hero-slogan{
-      margin: 0 0 18px 0;
-      font-size: 18px;
-      max-width: 70ch;
+      margin: 0 0 24px 0;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.42;
+      max-width: 64ch;
     }
     .hero-slogan .muted{ color: var(--muted); }
     .hero-bullets{
@@ -189,14 +195,12 @@
     .hero-bullets span{ display:block; font-size: 13px; color: var(--muted); }
 
     .hero-card{
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius2);
-      padding: 20px;
-      position: sticky;
-      top: 66px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
+        background: rgba(255,255,255,.04);
+  border: none;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.18);
+  backdrop-filter: blur(10px);
     }
     .hero-card h3{
       margin: 0 0 6px 0;
@@ -230,12 +234,12 @@
       margin-top: 22px;
     }
     .card{
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.22);
-      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,.04);
+  border: none;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.18);
+  backdrop-filter: blur(10px);
     }
     .card h4{ margin: 0 0 6px 0; font-size: 16px; letter-spacing: -.01em; }
     .card p{ margin: 0; color: var(--muted); font-size: 14px; }
@@ -258,15 +262,12 @@
       margin-top: 22px;
     }
     .service{
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 20px;
-      padding: 20px;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.22);
-      backdrop-filter: blur(12px);
+        background: rgba(255,255,255,.04);
+  border: none;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.18);
+  backdrop-filter: blur(10px);
     }
     .service .title{
       display:flex;
@@ -571,5 +572,12 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
+<script>
+  window.addEventListener("scroll", function() {
+    const topbar = document.querySelector(".topbar");
+    if (window.scrollY > 30) topbar.classList.add("scrolled");
+    else topbar.classList.remove("scrolled");
+  });
+</script>
 </body>
 </html>
