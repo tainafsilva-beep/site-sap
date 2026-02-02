@@ -407,7 +407,10 @@
           </ul>
 
           <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap;">
-            <a class="btn primary" href="#contato">Agende uma conversa estratégica</a>
+            <a class="btn primary" <a class="btn primary" href="https://wa.me/5511918906924?text=Oi%21%20Quero%20agendar%20uma%20conversa%20estrat%C3%A9gica%20sobre%20Gest%C3%A3o%20de%20Projetos%20SAP%20sob%20demanda.%0A%0AContexto%20breve%3A%0A-%20Empresa%2Fsegmento%3A%20%0A-%20Fase%20do%20projeto%3A%20%0A-%20Principal%20dor%3A%20%0A-%20Prazo%20cr%C3%ADtico%3A%20%0A" target="_blank" rel="noopener">
+  Agende uma conversa estratégica
+</a>
+
             <a class="btn" href="#servicos">Ver serviços</a>
           </div>
         </div>
@@ -579,5 +582,48 @@
     else topbar.classList.remove("scrolled");
   });
 </script>
+<a
+  href="https://wa.me/5511918906924?text=Oi%21%20Quero%20agendar%20uma%20conversa%20estrat%C3%A9gica%20sobre%20Gest%C3%A3o%20de%20Projetos%20SAP%20sob%20demanda."
+  class="wa-float"
+  target="_blank"
+  rel="noopener"
+  aria-label="Falar no WhatsApp"
+  title="Falar no WhatsApp"
+>
+  <span class="wa-dot" aria-hidden="true"></span>
+  WhatsApp
+</a>
+
+<style>
+  .wa-float{
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(11,16,32,.72);
+    color: rgba(255,255,255,.92);
+    font-weight: 700;
+    font-size: 13px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 14px 28px rgba(0,0,0,.28);
+  }
+  .wa-float:hover{
+    transform: translateY(-1px);
+    background: rgba(11,16,32,.82);
+  }
+  .wa-dot{
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #25D366;
+    box-shadow: 0 0 0 4px rgba(37,211,102,.18);
+  }
+</style>
 </body>
 </html>
