@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Gestão de Projetos SAP sob demanda. Governança e execução sem burocracia de consultoria tradicional. Modelo flexível: use quando precisar, pague pelo que usar." />
+  <title>Gestão de Projetos SAP sob Demanda</title>
+
+  <style>
+    :root{
+      --bg: #0b1020;
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(255,255,255,.58);
+      --border: rgba(255,255,255,.10);
+      --accent: #a7c5ff;
+      --accent2:#9ef0ff;
+      --shadow: 0 12px 28px rgba(0,0,0,.26);
+      --radius: 18px;
+      --radius2: 22px;
+      --max: 980px;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", Helvetica;
+      background:
+        radial-gradient(900px 600px at 15% 10%, rgba(167,197,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 85% 20%, rgba(158,240,255,.12), transparent 55%),
+        radial-gradient(900px 700px at 45% 90%, rgba(167,197,255,.10), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    a{ color: inherit; text-decoration: none; }
+    .container{ max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+    /* Top bar */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,16,32,.55);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 0;
+      gap: 16px;
+    }
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      min-width: 220px;
+    }
+    .brand strong{
+      font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .brand span{
+      font-size: 12px;
+      color: var(--muted2);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .nav a{
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+    }
+    .nav a:hover{
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-weight: 700;
+      letter-spacing: .01em;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, opacity .15s ease;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.18); }
+    .btn:active{ transform: translateY(0px); }
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(167,197,255,.22), rgba(158,240,255,.18));
+      border-color: rgba(167,197,255,.30);
+    }
+    .btn.small{ padding: 10px 12px; border-radius: 12px; font-size: 13px; }
+
+    /* Sections */
+    section{ padding: 96px 0; }
+    section:nth-of-type(even){
+      background: rgba(255,255,255,.025);
+      border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .section-title{
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      margin: 0 0 10px 0;
+    }
+    .section-sub{
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 78ch;
+    }
+
+    /* Hero */
+    .hero{ padding: 78px 0 64px 0; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.22fr .78fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .hero-kicker{
+      font-size: 14px;
+      color: var(--muted2);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .hero-h1{
+      font-size: 44px;
+      line-height: 1.10;
+      letter-spacing: -.03em;
+      margin: 0 0 14px 0;
+    }
+    .hero-slogan{
+      margin: 0 0 18px 0;
+      font-size: 18px;
+      max-width: 70ch;
+    }
+    .hero-slogan .muted{ color: var(--muted); }
+    .hero-bullets{
+      display:grid;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 0;
+      list-style: none;
+    }
+    .hero-bullets li{
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      padding: 14px 14px;
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      backdrop-filter: blur(10px);
+    }
+    .dot{
+      width: 10px; height: 10px; border-radius: 999px;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      margin-top: 6px;
+      flex: 0 0 auto;
+      box-shadow: 0 0 0 4px rgba(167,197,255,.08);
+    }
+    .hero-bullets strong{ display:block; font-size: 14px; margin-bottom: 2px; }
+    .hero-bullets span{ display:block; font-size: 13px; color: var(--muted); }
+
+    .hero-card{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius2);
+      padding: 20px;
+      position: sticky;
+      top: 66px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+    .hero-card h3{
+      margin: 0 0 6px 0;
+      font-size: 14px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      color: var(--muted2);
+    }
+    .hero-card p{ margin: 0 0 14px 0; color: var(--muted); font-size: 14px; }
+    .hero-card .mini{ display:grid; gap: 10px; margin-top: 10px; }
+    .pill{
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-size: 13px;
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+    }
+    .pill b{ color: var(--text); font-weight: 800; }
+
+    /* Cards */
+    .grid-2{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+    .card{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      backdrop-filter: blur(12px);
+    }
+    .card h4{ margin: 0 0 6px 0; font-size: 16px; letter-spacing: -.01em; }
+    .card p{ margin: 0; color: var(--muted); font-size: 14px; }
+
+    blockquote{
+      margin: 18px 0 0 0;
+      padding: 14px 16px;
+      border-left: 3px solid rgba(167,197,255,.55);
+      background: rgba(167,197,255,.08);
+      border-radius: 12px;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* Services */
+    .services{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+    .service{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 20px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      backdrop-filter: blur(12px);
+    }
+    .service .title{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      align-items:flex-start;
+    }
+    .service .title strong{ font-size: 16px; }
+    .service .tag{
+      font-size: 12px;
+      color: var(--muted2);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(255,255,255,.03);
+      white-space: nowrap;
+    }
+    .service p{ margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* Engagement */
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+    .step{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      backdrop-filter: blur(12px);
+    }
+    .step .n{
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .18em;
+      color: var(--muted2);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .step h4{ margin: 0 0 6px 0; font-size: 16px; }
+    .step p{ margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* KPI */
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .kpi{
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 20px;
+      background: rgba(255,255,255,.03);
+      padding: 16px 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 4px;
+      backdrop-filter: blur(10px);
+    }
+    .kpi b{ font-size: 22px; letter-spacing: -.02em; }
+    .kpi span{ color: var(--muted); font-size: 13px; }
+
+    /* Footer */
+    footer{
+      padding: 40px 0;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: var(--muted2);
+      font-size: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .hero-card{ position: relative; top: 0; }
+      .grid-2{ grid-template-columns: 1fr; }
+      .services{ grid-template-columns: 1fr; }
+      .steps{ grid-template-columns: 1fr; }
+      .kpis{ grid-template-columns: 1fr; }
+      .hero-h1{ font-size: 36px; }
+    }
+    @media (max-width: 420px){
+      section{ padding: 64px 0; }
+      .hero{ padding: 64px 0 54px 0; }
+      .hero-h1{ font-size: 32px; }
+      .nav{ display:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <div class="brand">
+          <strong>Gestão SAP sob Demanda</strong>
+          <span>SAP Activate pragmático • Governança • Execução</span>
+        </div>
+        <nav class="nav" aria-label="Navegação">
+          <a href="#problema">Problema</a>
+          <a href="#para-quem">Para quem</a>
+          <a href="#como">Como atuamos</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#contratacao">Contratação</a>
+          <a class="btn small primary" href="#contato">Agendar conversa</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="topo">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-kicker">Gestão de Projetos SAP sob Demanda</div>
+
+          <h1 class="hero-h1">Um Gerente de Projetos SAP ao seu lado — na hora que você precisar.</h1>
+
+          <p class="hero-slogan">
+            Sem a margem e a estrutura pesada da consultoria tradicional.
+            <span class="muted">Sem ociosidade. Sem custos desnecessários.</span>
+          </p>
+
+          <p class="section-sub">
+            Apoio sênior para projetos SAP críticos, com modelo flexível e direto.
+            Atuação baseada no <strong>SAP Activate</strong>, aplicada de forma prática — sem contratos longos,
+            estruturas pesadas ou dependência de grandes consultorias.
+          </p>
+
+          <ul class="hero-bullets" aria-label="Benefícios">
+            <li><span class="dot" aria-hidden="true"></span><div><strong>Use conforme a necessidade</strong><span>Acione o serviço apenas quando seu projeto exigir</span></div></li>
+            <li><span class="dot" aria-hidden="true"></span><div><strong>Pague pelo que usar</strong><span>Modelo sob demanda sem compromissos longos</span></div></li>
+            <li><span class="dot" aria-hidden="true"></span><div><strong>Clareza executiva</strong><span>Decisões informadas e redução de riscos</span></div></li>
+          </ul>
+
+          <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a class="btn primary" href="#contato">Agende uma conversa estratégica</a>
+            <a class="btn" href="#servicos">Ver serviços</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Resumo rápido">
+          <h3>Resumo</h3>
+          <p>Modelo desenhado para projetos SAP complexos: flexível, direto e orientado à execução.</p>
+
+          <div class="mini">
+            <div class="pill"><span>Contratação</span> <b>Hora ou pacotes</b></div>
+            <div class="pill"><span>Lock-in</span> <b>Sem amarras</b></div>
+            <div class="pill"><span>Ativação</span> <b>Até 48h</b></div>
+          </div>
+
+          <div style="margin-top:14px;">
+            <a class="btn primary" href="#contato" style="width:100%;">Agendar</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section id="problema">
+    <div class="container">
+      <h2 class="section-title">O Problema Real</h2>
+      <p class="section-sub">
+        Projetos SAP não falham por falta de metodologia. Falham por excesso de burocracia e baixa responsabilidade prática.
+        Frameworks bem definidos, mas mal executados, geram apenas a ilusão de controle.
+      </p>
+
+      <div class="grid-2">
+        <div class="card"><h4>Frameworks mal executados</h4><p>Metodologias robustas aplicadas de forma mecânica, sem adaptação à realidade do negócio.</p></div>
+        <div class="card"><h4>Cerimônias sem decisão</h4><p>Reuniões excessivas que consomem tempo mas não resolvem problemas críticos.</p></div>
+        <div class="card"><h4>Estruturas pesadas</h4><p>Camadas de aprovação e governança que atrasam o avanço real do projeto.</p></div>
+        <div class="card"><h4>Custos altos, valor baixo</h4><p>Investimento significativo sem ganho proporcional de previsibilidade ou resultado.</p></div>
+      </div>
+
+      <blockquote>Metodologia sem execução não protege o projeto.</blockquote>
+    </div>
+  </section>
+
+  <!-- PARA QUEM -->
+  <section id="para-quem">
+    <div class="container">
+      <h2 class="section-title">Para Quem Este Serviço É</h2>
+      <p class="section-sub">
+        Este serviço é indicado para empresas que precisam de governança forte sem lock-in contratual.
+        Organizações que reconhecem o valor do SAP Activate como framework, mas rejeitam sua aplicação burocrática.
+      </p>
+
+      <div class="grid-2" style="margin-top:18px;">
+        <div class="card"><h4>SAP Activate como referência</h4><p>Framework aplicado de forma prática, não como burocracia.</p></div>
+        <div class="card"><h4>Implementação S/4HANA</h4><p>Projetos de migração ou implementação em andamento.</p></div>
+        <div class="card"><h4>Projetos em risco</h4><p>Iniciativas SAP sem visibilidade clara ou controle adequado.</p></div>
+        <div class="card"><h4>Sem lock-in</h4><p>Necessidade de governança forte sem amarras contratuais.</p></div>
+      </div>
+
+      <p style="margin:18px 0 0 0; color: var(--text); font-weight:800;">
+        Não é para quem busca apenas seguir ritos. É para quem precisa decidir e entregar.
+      </p>
+    </div>
+  </section>
+
+  <!-- COMO ATUAMOS -->
+  <section id="como">
+    <div class="container">
+      <h2 class="section-title">Como Atuamos</h2>
+      <p class="section-sub">
+        Atuação prática, integrada ao time do cliente e orientada à execução. Framework como base. Execução como prioridade.
+      </p>
+
+      <div class="grid-2">
+        <div class="card"><h4>SAP Activate pragmático</h4><p>Aplicação focada em valor, não em compliance documental.</p></div>
+        <div class="card"><h4>Governança clara</h4><p>Estrutura de decisão para questões técnicas e executivas.</p></div>
+        <div class="card"><h4>Planejamento realista</h4><p>Fases Discover a Deploy com entregas tangíveis.</p></div>
+        <div class="card"><h4>Comunicação direta</h4><p>Sem intermediários, acesso direto aos decisores.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICOS -->
+  <section id="servicos">
+    <div class="container">
+      <h2 class="section-title">Serviços</h2>
+      <p class="section-sub">
+        Serviços acionados conforme a fase do projeto, sem pacotes engessados. Cada entrega é desenhada para atender necessidades específicas do momento do projeto.
+      </p>
+
+      <div class="services" aria-label="Lista de serviços">
+        <div class="service"><div class="title"><strong>Assessment e Diagnóstico</strong><span class="tag">Activate-alinhado</span></div><p>Avaliação alinhada ao SAP Activate, identificando gaps críticos e oportunidades de otimização.</p></div>
+        <div class="service"><div class="title"><strong>Planejamento por Fases</strong><span class="tag">Discover → Deploy</span></div><p>Estruturação e ajustes conforme evolução do Activate, com foco em entregas.</p></div>
+        <div class="service"><div class="title"><strong>Gestão de Projetos SAP</strong><span class="tag">Integral ou parcial</span></div><p>Governança integral ou parcial, com responsabilidade sobre entregas e prazos.</p></div>
+        <div class="service"><div class="title"><strong>Go-Live e Hypercare</strong><span class="tag">Momento crítico</span></div><p>Apoio crítico nos momentos de maior risco operacional do projeto.</p></div>
+        <div class="service" style="grid-column: 1 / -1;"><div class="title"><strong>Suporte Executivo</strong><span class="tag">Decisão e governança</span></div><p>Governança de programas SAP e apoio a decisões estratégicas de TI.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTRATACAO -->
+  <section id="contratacao">
+    <div class="container">
+      <h2 class="section-title">Modelo de Contratação</h2>
+      <p class="section-sub">
+        Flexibilidade real. Modelo desenhado para acompanhar a dinâmica de projetos SAP complexos, sem amarras contratuais que limitam sua capacidade de ajuste.
+      </p>
+      <p class="section-sub" style="margin-top:10px;">
+        Use quando precisar. Pague pelo que usar. Ajuste conforme o projeto evolui. Sem multas, sem burocracia, sem surpresas.
+      </p>
+
+      <div class="steps" aria-label="Pilares do modelo">
+        <div class="step"><div class="n">01</div><h4>Contratação por Hora ou Pacotes</h4><p>Flexibilidade total para acionar o serviço conforme a demanda do projeto.</p></div>
+        <div class="step"><div class="n">02</div><h4>Sem Contratos Longos</h4><p>Compromissos de curto prazo, renováveis conforme necessidade e resultados.</p></div>
+        <div class="step"><div class="n">03</div><h4>Ajuste Rápido</h4><p>Adaptação ágil do escopo conforme evolução e mudanças do projeto.</p></div>
+      </div>
+
+      <div class="kpis" aria-label="Indicadores">
+        <div class="kpi"><b>0</b><span>Multas de Saída (liberdade para ajustar ou interromper)</span></div>
+        <div class="kpi"><b>100%</b><span>Transparência (clareza total sobre uso e custos)</span></div>
+        <div class="kpi"><b>48h</b><span>Ativação (início rápido quando você precisar)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section id="contato">
+    <div class="container">
+      <h2 class="section-title">Retome o Controle do Seu Projeto SAP</h2>
+      <p class="section-sub">
+        Se o seu projeto SAP precisa de governança real, execução consistente e aplicação pragmática do SAP Activate — sem burocracia de consultoria tradicional — uma conversa estratégica pode ajudar a retomar o controle.
+      </p>
+
+      <div class="grid-2" style="margin-top:22px;">
+        <div class="card"><h4>Diagnóstico Inicial</h4><p>Entendimento da situação atual do projeto.</p></div>
+        <div class="card"><h4>Proposta Customizada</h4><p>Modelo de atuação ajustado às suas necessidades.</p></div>
+        <div class="card" style="grid-column: 1 / -1;"><h4>Início Rápido</h4><p>Ativação do serviço em até 48 horas.</p></div>
+      </div>
+
+      <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap;">
+        <!-- Placeholder: troque para WhatsApp ou seu e-mail quando tiver. -->
+        <a class="btn primary" href="mailto:contato@seudominio.com?subject=Conversa%20estrat%C3%A9gica%20-%20Projetos%20SAP&body=Oi!%20Quero%20agendar%20uma%20conversa%20estrat%C3%A9gica%20sobre%20meu%20projeto%20SAP.%0A%0AContexto%20breve%3A%20%0A%0AFase%20do%20projeto%3A%20%0A%0APrioridade%3A%20%0A">
+          Agende uma conversa estratégica
+        </a>
+        <a class="btn" href="#topo">Voltar ao topo</a>
+      </div>
+
+      <p style="margin-top:14px; color: var(--muted2); font-size: 13px;">
+        *Contato provisório: assim que você definir WhatsApp/e-mail, eu te passo a linha exata para trocar o botão e ativar formulário.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+        <div>© <span id="y"></span> Gestão de Projetos SAP sob Demanda</div>
+        <div style="color: var(--muted2);">Framework: SAP Activate (aplicação pragmática) • Modelo sob demanda</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
